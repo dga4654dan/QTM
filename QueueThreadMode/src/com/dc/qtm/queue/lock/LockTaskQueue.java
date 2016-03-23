@@ -78,7 +78,7 @@ public class LockTaskQueue<TagetInfo, QueueInfo, Param>
 	protected volatile Task<TagetInfo, QueueInfo, Param> taskNow = null;
 	
 	/**
-	 * 线程开始执行当前任务时间
+	 * 线程开始执行当前任的务时间，没有被执行时=0
 	 */
 	protected volatile long threadStartTime = 0;
 	
@@ -581,6 +581,12 @@ public class LockTaskQueue<TagetInfo, QueueInfo, Param>
 		
 		return ExecutorResult.SUCCESS;
 	}
+	
+	@Override
+	public long getThreadStartTime() {
+		
+		return threadStartTime;
+	}
 
 	@Override
 	public QueueRuningInfo<QueueInfo, Param> getQueueRuningInfo( boolean needThreadTrackInfo ) {
@@ -588,7 +594,7 @@ public class LockTaskQueue<TagetInfo, QueueInfo, Param>
 		operateLock.lock();
 		try {
 			
-			QueueStatus queueStatus = new QueueStatus(runState, queueState, requireHold, requireAbandon);
+			QueueStatus queueStatus = new QueueStatus(runState, queueState, requireHold, requireAbandon, threadStartTime);
 			
 			List<TaskInfo<Param>> taskInfoList = new ArrayList<TaskInfo<Param>>( waitTaskList.size() + 1 );
 			

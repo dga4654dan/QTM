@@ -28,13 +28,19 @@ public class QueueStatus {
 	 */
 	public final boolean requireAbandon;
 	
+	/**
+	 * 线程开始执行当前任务的时间，没有被执行时=0
+	 */
+	public final long threadStartTime;
+	
 	public QueueStatus( RunState runState, QueueState queueState,
-			boolean requireHold, boolean requireAbandon ) {
+			boolean requireHold, boolean requireAbandon, long threadStartTime ) {
 
 		this.runState = runState;
 		this.queueState = queueState;
 		this.requireHold = requireHold;
 		this.requireAbandon = requireAbandon;
+		this.threadStartTime = threadStartTime;
 	}
 
 	/**
@@ -65,10 +71,18 @@ public class QueueStatus {
 		return requireAbandon;
 	}
 
+	/**
+	 * @return 线程开始执行当前任务的时间，没有被执行时=0
+	 */
+	public long getThreadStartTime() {
+		return threadStartTime;
+	}
+
 	@Override
 	public String toString() {
 		return "QueueStatus [runState=" + runState + ", queueState=" + queueState 
-				+ ", requireHold=" + requireHold + ", requireAbandon=" + requireAbandon + "]";
+				+ ", requireHold=" + requireHold + ", requireAbandon=" + requireAbandon
+				+ ", threadStartTime=" + threadStartTime + "]";
 	}
 	
 	

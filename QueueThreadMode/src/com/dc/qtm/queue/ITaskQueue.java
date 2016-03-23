@@ -129,6 +129,13 @@ public interface ITaskQueue<TagetInfo, QueueInfo, Param> {
 	 */
 	boolean isRequireAbandon();
 
+	/**
+	 * 线程开始执行当前任务的时间，没有被执行时=0
+	 * 
+	 * @return 线程开始执行当前任务的时间，没有被执行时=0
+	 */
+	long getThreadStartTime();
+
 	
 
 	
