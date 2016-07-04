@@ -398,10 +398,12 @@ public class LockTaskQueue<TagetInfo, QueueInfo, Param>
 			
 			case NORMAL:
 				
+				requireHold = false;
 				return ExecutorResult.SUCCESS;
 				
 			case HOLD:
 				
+				requireHold = false;
 				if( runState == RunState.STOP ) {
 					
 					// 取得下一个任务，并启动线程执行
